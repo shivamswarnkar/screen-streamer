@@ -17,6 +17,7 @@ or to capture frame by frame for dispaly or streaming.
 import pyautogui
 import cv2
 import numpy as np
+from PIL import Image
 
 
 class Screener:
@@ -44,11 +45,19 @@ class Screener:
             screenshot: screenshot of the device screen
         """
         screenshot = pyautogui.screenshot()
+        return screenshot if self._pil else self.pil_to_np(screenshot)
 
-        if not self._pil:
-            screenshot_np = np.array(screenshot)
-            screenshot_np = cv2.cvtColor(screenshot_np, cv2.COLOR_BGR2RGB)
-            return screenshot_np
+    @staticmethod
+    def pil_to_np(img: Image) -> np.array:
+        """convert PIL Image to np array (cv2 format).
 
-        else:
-            return screenshot
+        Args:
+            img ([PIL.Image]): PIL Image
+
+        Returns:
+            img_np: Image in ndarray format
+        """
+        img_np = np.array(img)
+        img_np = cv2.cvtColor(img_np, cv2.COLOR_BGR2RGB)
+
+        return img_np
