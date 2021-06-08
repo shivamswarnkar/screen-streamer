@@ -15,6 +15,13 @@ import sys
 
 sys.path.insert(0, os.path.abspath('../'))
 
+# sanity check
+try:
+    import pyautogui
+except:
+    import os
+    os.environ['DISPLAY'] = ':0'
+
 # -- Project information -----------------------------------------------------
 
 project = 'Screen Streamer'
