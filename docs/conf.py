@@ -19,8 +19,13 @@ sys.path.insert(0, os.path.abspath('../'))
 try:
     import pyautogui
 except:
-    import os
-    os.environ['DISPLAY'] = ':0'
+    with open('pyautogui.py', 'w') as fh:
+        fh.write("""
+class pyautogui:
+    @staticmethod
+    def screenshot(self):
+        pass
+""")
 
 # -- Project information -----------------------------------------------------
 
